@@ -23,7 +23,19 @@
 
 
 ;;
+;; internal protocol for printing dispatch.
+;;
+(defprotocol IPrintMethod
+
+  (-print [_ ^Writer writer] "It outputs an EDN representation to the writer"))
+
+
+
+;;
 ;; From [Wikipedia's article](https://en.wikipedia.org/wiki/Reservoir_sampling#Simple_algorithm)
+
+
+
 ;; A simple and popular but slow algorithm, commonly known as
 ;; Algorithm R, is due to Alan Waterman The algorithm works by
 ;; maintaining a reservoir of size `capacity`, which initially contains the
@@ -115,11 +127,21 @@
   (nth [this i]
     (nth buf i))
   (nth [this i default]
-    (nth buf i default)))
+    (nth buf i default))
+
+  IPrintMethod
+  (-print [this w]
+    (.write ^Writer w "#com.brunobonacci/reservoir ")
+    (print-method [:algorithm-R capacity n buf] w))
+  )
+
 
 
 ;;
 ;; From [Wikipedia's article](https://en.wikipedia.org/wiki/Reservoir_sampling#An_optimal_algorithm)
+
+
+
 ;;
 ;; `Algorithm L` improves upon this algorithm by computing how many
 ;; items are discarded before the next item enters the reservoir. The
@@ -211,7 +233,36 @@
   (nth [this i]
     (nth buf i))
   (nth [this i default]
-    (nth buf i default)))
+    (nth buf i default))
+
+  IPrintMethod
+  (-print [this w]
+    (.write ^Writer w "#com.brunobonacci/reservoir ")
+    (print-method [:algorithm-L capacity n buf] w)))
+
+
+
+
+(defmethod print-method com.brunobonacci.reservoir.IReservoir
+  [^com.brunobonacci.reservoir.IReservoir b ^Writer w]
+  (-print b w))
+
+
+
+(defmethod print-dup com.brunobonacci.reservoir.IReservoir
+  [r ^java.io.Writer w]
+  (print-method r w))
+
+
+
+(defn- read-method [[algo capacity n buf]]
+  (case algo
+    :algorithm-L
+    (PersistentReservoirAlgorithmL. capacity n buf nil
+      (Math/exp (/ (Math/log (rand)) capacity)) (inc n))
+
+    :algorithm-R
+    (PersistentReservoirSimple. capacity n buf nil)))
 
 
 
