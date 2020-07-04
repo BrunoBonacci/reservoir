@@ -1,5 +1,5 @@
 # reservoir
-[![Clojars Project](https://img.shields.io/clojars/v/com.brunobonacci/reservoir.svg)](https://clojars.org/com.brunobonacci/reservoir)  [![cljdoc badge](https://cljdoc.org/badge/com.brunobonacci/reservoir)](https://cljdoc.org/d/com.brunobonacci/reservoir/CURRENT) ![CircleCi](https://img.shields.io/circleci/project/BrunoBonacci/reservoir.svg) ![last-commit](https://img.shields.io/github/last-commit/BrunoBonacci/reservoir.svg) [![Dependencies Status](https://jarkeeper.com/com.brunobonacci/reservoir/status.svg)](https://jarkeeper.com/BrunoBonacci/reservoir)
+[![Clojars Project](https://img.shields.io/clojars/v/com.brunobonacci/reservoir.svg)](https://clojars.org/com.brunobonacci/reservoir)  [![cljdoc badge](https://cljdoc.org/badge/com.brunobonacci/reservoir)](https://cljdoc.org/d/com.brunobonacci/reservoir/CURRENT) ![CircleCi](https://img.shields.io/circleci/project/BrunoBonacci/reservoir.svg) ![last-commit](https://img.shields.io/github/last-commit/BrunoBonacci/reservoir.svg)
 
 A fast implementation of Reservoir Sampling with Immutable Persistent data structures.
 

@@ -1,5 +1,5 @@
 (defproject com.brunobonacci/reservoir "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "A fast implementation of Reservoir Sampling with Immutable Persistent data structures."
 
   :url "https://github.com/BrunoBonacci/reservoir"
 
