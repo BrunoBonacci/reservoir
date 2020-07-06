@@ -64,4 +64,14 @@
   (rsv/total-items (into r3 (range 120)))
   ;; => 150
 
+
+  ;; you can merge two or more reservoir as following
+  ;; the resulting reservoir will have the characteristics
+  ;; of the first reservoir with all the sample combined
+  ;; based on their probability to be in the final sample.
+  (rsv/merge-reservoirs
+    (into (rsv/reservoir 5) (range 20))
+    (into (rsv/reservoir 3) (range 10))
+    (into (rsv/reservoir 4 :algorithm :algorithm-R) (range 20)))
+  ;; => #com.brunobonacci/reservoir [:algorithm-L 5 50 [0 5 8 17 10]]
   )

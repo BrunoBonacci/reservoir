@@ -18,6 +18,7 @@
                                   [org.clojure/test.check "1.0.0"]
                                   [criterium "0.4.5"]
                                   [org.slf4j/slf4j-log4j12 "1.7.30"]
+                                  [jmh-clojure "0.2.1"]
                                   ;; for comparison
                                   [bigml/sampling "3.2"]
                                   ]

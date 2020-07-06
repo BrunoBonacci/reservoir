@@ -7,7 +7,8 @@
             Reversible
             IObj]
            [java.io Writer Serializable]
-           [java.util Collection]))
+           [java.util Collection]
+           [java.util.concurrent ThreadLocalRandom]))
 
 
 
@@ -20,6 +21,7 @@
   (add-item [_ item]
     "Probably adds the item to the reservoir and returns a new
     reservoir which could contain this item."))
+
 
 
 ;;
@@ -242,7 +244,6 @@
 
 
 
-
 (defmethod print-method com.brunobonacci.reservoir.IReservoir
   [^com.brunobonacci.reservoir.IReservoir b ^Writer w]
   (-print b w))
@@ -255,7 +256,7 @@
 
 
 
-(defn- read-method [[algo capacity n buf]]
+(defn- make-reservoir [[algo capacity n buf]]
   (case algo
     :algorithm-L
     (PersistentReservoirAlgorithmL. capacity n buf nil
@@ -276,3 +277,29 @@
 
     (:simple :algorithm-R)
     (PersistentReservoirSimple. capacity 0 [] nil)))
+
+
+
+(defn- combine-reservoirs
+  [^com.brunobonacci.reservoir.IReservoir r1
+   ^com.brunobonacci.reservoir.IReservoir r2]
+  (let [n1 (total-items r1)
+        n2 (total-items r2)
+        n' (+ n1 n2)
+        p  (/ n2 n')
+        lr (ThreadLocalRandom/current)
+        k1 (capacity r1)
+        R' (reduce
+             (fn [acc i]
+               (if (<= (rand) p)
+                 (assoc acc (.nextInt lr k1) i)
+                 acc))
+             (samples r1)
+             (samples r2))]
+    (make-reservoir [(algorithm r1) (capacity r1) n' R'])))
+
+
+
+(defn merge-reservoirs
+  [& reservoirs]
+  (reduce combine-reservoirs reservoirs))
