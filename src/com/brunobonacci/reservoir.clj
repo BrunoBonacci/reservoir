@@ -303,3 +303,12 @@
 (defn merge-reservoirs
   [& reservoirs]
   (reduce combine-reservoirs reservoirs))
+
+
+
+(defn frequency-density
+  [^com.brunobonacci.reservoir.IReservoir reservoir]
+  (let [k (capacity reservoir)]
+    (->> (frequencies reservoir)
+      (map (fn [[i f]] [i (/ f k)]))
+      (into {}))))
