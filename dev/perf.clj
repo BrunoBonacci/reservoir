@@ -1,7 +1,11 @@
 (ns perf
   (:require [com.brunobonacci.reservoir :refer :all]
             [criterium.core :refer [bench quick-bench]]
-            [clojure.pprint]))
+            [clojure.pprint]
+            [clojure.string :as str]
+            [clojure.java.io :as io]
+            [jmh.core :as jmh]
+            [clojure.edn :as edn]))
 
 
 (defn items
@@ -118,5 +122,22 @@
   ;; Execution time upper quantile : 469.125423 ms (97.5%)
   ;; Overhead used : 1.827186 ns
 
+
+  )
+
+
+(comment
+
+  (jmh/run
+    (clojure.edn/read-string (slurp "./dev/perf/benchmarks.edn"))
+    {:type  :quick
+     :status true
+     :pprint true})
+
+  ;; lein perf
+  ;; # Run complete. Total time: 00:14:24
+  ;; Benchmark                                 Mode  Cnt   Score   Error  Units
+  ;; bench_0_reservoir_algorithm_R_10K_1M.run  avgt  200  39.195 ± 0.455  ns/op
+  ;; bench_1_reservoir_algorithm_L_10K_1M.run  avgt  200  26.883 ± 0.613  ns/op
 
   )

@@ -14,7 +14,8 @@
 
   :jvm-opts ["-server"]
 
-  :profiles {:dev {:dependencies [[midje "1.9.9"]
+  :profiles {:dev {:source-paths ["dev"]
+                   :dependencies [[midje "1.9.9"]
                                   [org.clojure/test.check "1.0.0"]
                                   [criterium "0.4.5"]
                                   [org.slf4j/slf4j-log4j12 "1.7.30"]
@@ -24,4 +25,7 @@
                                   ]
                    :resource-paths ["dev-resources"]
                    :plugins      [[lein-midje "3.2.2"]]}}
+
+  :aliases
+  {"perf" ["with-profile" "dev" "jmh" #=(pr-str {:file "./dev/perf/benchmarks.edn" :status true :pprint true})]}
   )

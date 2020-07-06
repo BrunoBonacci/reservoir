@@ -1,0 +1,10 @@
+{:benchmarks
+ [perf.benchmarks/reservoir-algorithm-R-10K-1M
+  perf.benchmarks/reservoir-algorithm-L-10K-1M]
+
+ :options
+ {:jmh/default
+  {:mode [:average #_:single-shot #_:throughput #_:samples #_:all]
+   :ops-per-invocation 1000000
+   :output-time-unit :ns}}
+ }
