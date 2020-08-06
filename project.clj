@@ -26,6 +26,9 @@
                                   [jmh-clojure "0.3.1"]
                                   ;; for comparison
                                   [bigml/sampling "3.2"]
+                                  ;; for testing
+                                  [incanter/incanter-core "1.9.3"]
+                                  [incanter/incanter-charts "1.9.3"]
                                   ]
                    :resource-paths ["dev-resources"]
                    :plugins      [[lein-midje "3.2.2"]
