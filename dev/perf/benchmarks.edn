@@ -4,7 +4,10 @@
 
  :options
  {:jmh/default
-  {:mode [:average #_:single-shot #_:throughput #_:samples #_:all]
+  {:mode             [:average #_:single-shot #_:throughput #_:samples #_:all]
+   :output-time-unit :ns
+   :fork             15
+   :measurement      10
    :ops-per-invocation 1000000
-   :output-time-unit :ns}}
+   :warmup           {:time [10 :seconds]}}}
  }
