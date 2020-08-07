@@ -301,12 +301,18 @@
 
 
 (defn merge-reservoirs
+  "Merges two or more reservoirs using the settings of the first one ()for the combined one"
   [& reservoirs]
   (reduce combine-reservoirs reservoirs))
 
 
 
 (defn frequency-density
+  "returns a map of items frequencies expressed and the portion of the
+  total number of items. To compute the frequencies as count of times
+  each item appear in the reservoir just use clojure.core/frequencies
+  function.
+  "
   [^com.brunobonacci.reservoir.IReservoir reservoir]
   (let [k (capacity reservoir)]
     (->> (frequencies reservoir)
