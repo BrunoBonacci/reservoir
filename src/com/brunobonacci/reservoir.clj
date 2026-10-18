@@ -3,8 +3,6 @@
             Sequential
             IPersistentCollection
             Indexed
-            IPersistentStack
-            Reversible
             IObj]
            [java.io Writer Serializable]
            [java.util Collection]
